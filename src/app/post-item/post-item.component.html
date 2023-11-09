@@ -14,4 +14,10 @@
       </nz-collapse-panel>
     </nz-collapse>
   </nz-list-item>
+
+  <!-- post-item.component.html -->
+<button nz-button (click)="toggleComments.emit(post.id)">
+  {{ showComments ? 'Hide Comments' : 'Show Comments' | buttonText }}
+</button>
+
   
