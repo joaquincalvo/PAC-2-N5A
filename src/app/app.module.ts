@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { PhotosComponent } from './album/photos/photos.component';
+import { ButtonTextPipe } from './button-text.pipe';
 
 registerLocaleData(en);
 
@@ -37,6 +38,7 @@ registerLocaleData(en);
     NzCollapseModule,
     FormsModule,
     BrowserAnimationsModule,
+    ButtonTextPipe
   ],
   providers: [NzMessageService, NzNotificationService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
