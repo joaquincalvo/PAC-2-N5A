@@ -2,7 +2,7 @@
     <h3>{{ post.title }}</h3>
     <p>{{ post.body }}</p>
     <button nz-button (click)="toggleComments.emit(post.id)">
-      {{ showComments ? 'Hide Comments' : 'Show Comments' }}
+      {{ showComments ? 'Hide Comments' : 'Show Comments' | buttonText }}
     </button>
     <nz-collapse *ngIf="showComments">
       <nz-collapse-panel
@@ -15,9 +15,7 @@
     </nz-collapse>
   </nz-list-item>
 
-  <!-- post-item.component.html -->
-<button nz-button (click)="toggleComments.emit(post.id)">
-  {{ showComments ? 'Hide Comments' : 'Show Comments' | buttonText }}
-</button>
+  
+
 
   
