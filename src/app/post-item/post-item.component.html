@@ -1,0 +1,17 @@
+<nz-list-item>
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.body }}</p>
+    <button nz-button (click)="toggleComments.emit(post.id)">
+      {{ showComments ? 'Hide Comments' : 'Show Comments' }}
+    </button>
+    <nz-collapse *ngIf="showComments">
+      <nz-collapse-panel
+        *ngFor="let comment of comments[post.id]"
+        [nzHeader]="'Comment: ' + comment.name"
+        [nzShowArrow]="false"
+      >
+        <p>{{ comment.body }}</p>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-list-item>
+  

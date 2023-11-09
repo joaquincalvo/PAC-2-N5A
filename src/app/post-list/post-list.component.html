@@ -1,0 +1,9 @@
+<!-- post-list.component.html -->
+<nz-list
+  [nzDataSource]="posts"
+  [nzRenderItem]="itemTemplate"
+>
+  <ng-template #itemTemplate let-item>
+    <app-post-item [post]="item" [showComments]="showComments[item.id]" (toggleComments)="toggleComments($event)"></app-post-item>
+  </ng-template>
+</nz-list>
