@@ -1,6 +1,8 @@
-
+// app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { PostService } from './post.service';
+import { catchError, finalize } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,7 @@ import { PostService } from './post.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title: any = 'pac-2';
+  title = 'pac-2';
   posts: any[] = [];
   comments: { [postId: number]: any } = {};
   showComments: { [postId: number]: boolean } = {};
@@ -20,14 +22,15 @@ export class AppComponent implements OnInit {
   }
 
   fetchPosts() {
-    this.postService.getPosts().subscribe(
-      (data: any) => {
-        this.posts = data;
-      },
-      (error: any) => {
-        console.error('Failed to fetch posts', error);
-      }
-    );
+    this.postService.getPosts()
+      .subscribe(
+        (data: any) => {
+          this.posts = data;
+        },
+        (error: any) => {
+          console.error('Failed to fetch posts', error);
+        }
+      );
   }
 
   toggleComments(postId: number) {
@@ -40,13 +43,20 @@ export class AppComponent implements OnInit {
   }
 
   fetchComments(postId: number) {
-    this.postService.getComments(postId).subscribe(
-      (data: any) => {
-        this.comments[postId] = data;
-      },
-      (error: any) => {
-        console.error(`Failed to fetch comments for post ${postId}`, error);
-      }
-    );
+    this.postService.getComments(postId)
+      .pipe(
+        catchError((error) => {
+          console.error(`Failed to fetch comments for post ${postId}`, error);
+          return EMPTY; 
+        }),
+        finalize(() => {
+          
+        })
+      )
+      .subscribe(
+        (data: any) => {
+          this.comments[postId] = data;
+        }
+      );
   }
 }
